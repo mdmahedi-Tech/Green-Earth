@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>green-earth</title>
+
+
+    <!-- Tailwind and Daisy UI CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+
+<body>
+
+   
+<main class="container mx-auto text-center">
+    <h1 class="text-green-600 font-serif text-4xl">choose your trees</h1>
+    <section class="grid grid-cols-12 gap-4">
+    <!-- category here -->
+        <div class="bg-white car card-body drop-shadow-2xl col-span-3">         <h1 class="font-bold">category</h1>
+         <button class="btn btn-success w-full">all trees</button>
+         <!-- dynamic button will be here by js -->
+         <div id="catagery-container">
+
+         </div>
+        </div>
+        <div class="bg-green-950 col-span-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div class="card bg-base-100 shadow-sm">
+        <figure>
+            <img
+            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+            alt="Shoes" />
+        </figure>
+        <div class="card-body">
+            <h2 class="card-title">Card Title</h2>
+            <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
+            <div class="card-actions justify-end">
+            <button class="btn btn-primary">Buy Now</button>
+            </div>
+        </div>
+        </div>
+            <!-- card end -->
+             
+            <!-- card end -->
+        </div>
+        <div class="bg-blue-950 col-span-3">
+            cart
+        </div>
+    </section>
+</main>
+
+
+ 
+<!-- js -->
+ <script src="./script.js"></script>
+</body>
+
+</html>
