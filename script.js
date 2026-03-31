@@ -1,6 +1,9 @@
 
 const catchcontainer=document.getElementById('catagery-container');
 const treecontainer=document.getElementById('treeContainer');
+const loadingSpeener=document.getElementById('loadingspeener');
+
+        //    loadcategpry button
  async function loadCategory(){
 // async await
 const res= await fetch("https://openapi.programming-hero.com/api/categories")
@@ -21,15 +24,27 @@ data.categories.forEach(category=> {
 
 }
 
-// tree container load
+   // tree container load
+   function showloading(){
+    loadingSpeener.classList.remove("hidden")
+    loadingSpeener.classList.add("flex")
+   }
+
+   function hideloading(){
+  loadingSpeener.classList.add("hidden")
+   }
 
 async function loadtrees(){
+    showloading()
     const res=await fetch("https://openapi.programming-hero.com/api/plants")
     const data=await res.json()
     // console.log(data);
+      hideloading()
      displaytrees(data.plants)
     
-}
+} 
+
+// display tress 
 function displaytrees(trees){
     // console.log(trees)
     trees.forEach(tree=>{
