@@ -2,6 +2,7 @@
 const catchcontainer=document.getElementById('catagery-container');
 const treecontainer=document.getElementById('treeContainer');
 const loadingSpeener=document.getElementById('loadingspeener');
+const alltreesbutton=document.getElementById('alltreesbutton');
 
         //    loadcategpry button
  async function loadCategory(){
@@ -9,20 +10,55 @@ const loadingSpeener=document.getElementById('loadingspeener');
 const res= await fetch("https://openapi.programming-hero.com/api/categories")
 
 const data=await res.json()
-console.log(data)
+// console.log(data)
 
 data.categories.forEach(category=> {
-    console.log(category)
+    // console.log(category)
     const btn=document.createElement("button");
     btn.className="btn btn-outline w-full";
     btn.innerText= category.category_name
+
+   btn.onclick=()=>selectcategorybutton(category.id,btn)
    
-    
+      
     catchcontainer.appendChild(btn);
   
 });
 
 }
+ 
+async function selectcategorybutton(categoryId,btn){
+ console.log(categoryId,btn)
+showloading()
+
+const allbuttons=document.querySelectorAll("#catagery-container button,#alltreesbutton");
+
+allbuttons.forEach(button => {
+   button.classList.remove("btn-primary")
+   button.classList.add("btn-outline")
+})
+btn.classList.add("btn-primary")
+btn.classList.remove("btn-outline")
+ const res= await fetch (`https://openapi.programming-hero.com/api/category/${categoryId}`)
+ const data=await res.json()
+ console.log(data)
+displaytrees(data.plants)
+ hideloading()
+
+}
+// all button active
+alltreesbutton.addEventListener("click",()=>{
+    const allbuttons=document.querySelectorAll("#catagery-container button,#alltreesbutton");
+ 
+  allbuttons.forEach(button => {
+   button.classList.remove("btn-primary")
+   button.classList.add("btn-outline")
+})
+alltreesbutton.classList.add("btn-primary")
+alltreesbutton.classList.remove("btn-outline")
+ loadtrees()
+
+})
 
    // tree container load
    function showloading(){
@@ -46,10 +82,12 @@ async function loadtrees(){
 
 // display tress 
 function displaytrees(trees){
+     treecontainer.innerHTML = ""; 
     // console.log(trees)
     trees.forEach(tree=>{
-    console.log(tree)
+    // console.log(tree)
     const card=document.createElement('div');
+    
     card.className="card bg-base-100 shadow-sm"
     card.innerHTML=`
     
