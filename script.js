@@ -4,8 +4,10 @@ const treecontainer=document.getElementById('treeContainer');
 const loadingSpeener=document.getElementById('loadingspeener');
 const alltreesbutton=document.getElementById('alltreesbutton');
 const cartContainer= document.getElementById('cartContainer');
+const totallPrice= document.getElementById('totallPrice');
+const emptycardmsg= document.getElementById('emptycardmsg');
 
-const cart=[];
+let cart=[];
 
         //    loadcategpry button
  async function loadCategory(){
@@ -91,7 +93,7 @@ function displaytrees(trees){
     // console.log(tree)
     const card=document.createElement('div');
     
-    card.className="card bg-base-100 shadow-sm"
+    card.className=`card bg-base-100 shadow-sm ${tree.price<500 ? "border-red-500" : "border-green-500"}`;
     card.innerHTML=`
     
 <div class="card bg-base-100 shadow-sm">
@@ -136,11 +138,24 @@ function addToCart(id,name,price){
    
     updateCart()
 }
+//   update card
 
 function updateCart(){
 cartContainer.innerHTML="";
-console.log(cart);
+
+if(cart.length===0){
+    emptycardmsg.classList.remove('hidden');
+    totallPrice.textContent=`$${0}`
+    return;
+}
+else{
+     emptycardmsg.classList.add('hidden');
+}
+
+
+let total=0;
 cart.forEach(item => {
+    total+=item.price*item.quantity;
     const cartitem=document.createElement('div')
     cartitem.className="space-y-2";
     cartitem.innerHTML=`
@@ -152,7 +167,7 @@ cart.forEach(item => {
                   <p class="font-bold">${item.price}x${item.quantity}</p>
                   </div>
                 
-                   <button class="font-bold">x</button>
+                   <button class="font-bold"onclick="removeformcard(${item.id})">x</button>
                </div>
               
                   <p class="text-right font-semibold">$${item.price *  item.quantity}</p>
@@ -164,7 +179,16 @@ cart.forEach(item => {
     `
     cartContainer.appendChild(cartitem)
 
-});
+ });
+ totallPrice.innerText=total;
 }
- loadCategory()
-loadtrees()
+// remove cart
+function removeformcard(treeId){
+  console.log(treeId,'tree id')
+  const updatedelements=cart.filter(item=>item.id!==treeId)
+ 
+  cart=updatedelements;
+  updateCart()
+ }
+  loadCategory()
+ loadtrees()
